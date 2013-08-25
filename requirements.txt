@@ -1,0 +1,8 @@
+Django
+psycopg2
+django-mptt
+scrapy
+mock
+pil
+django-debug-toolbar
+south
