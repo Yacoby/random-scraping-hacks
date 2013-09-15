@@ -25,9 +25,8 @@ DOWNLOAD_DELAY=4
 #LOG_LEVEL='INFO'
 
 ITEM_PIPELINES = [
-    #'scraping.pipelines.BadDataFilter',
-    #'scraping.pipelines.AddDefaultNameToOption',
-    #'scraping.pipelines.HtmlCleaner',
+    'scraping.pipelines.BadDataFilter',
+    'scraping.pipelines.HtmlCleaner',
     'scraping.pipelines.DbWriter',
 ]
 

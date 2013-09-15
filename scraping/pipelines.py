@@ -28,24 +28,11 @@ class MergeIfLooksLikeDuplicate(object):
         """ TODO implement """
         return item
 
-class AddDefaultNameToOption(object):
-    """
-    If there is only one item and it doesn't have a name, add the overall name
-    to it
-    """
-    def process_item(self, item, spider):
-        if len(item['options']) == 1:
-            option = item['options'][0]
-            if not option['name']:
-                option['name'] = item['name']
-        return item
-
 class BadDataFilter(object):
     def process_item(self, item, spider):
         if not item['name']:
             log.msg('Dropped an item from <%s> as it had no name' % item['url'])
             return
-
         return item
 
 
@@ -66,11 +53,6 @@ class HtmlCleaner(object):
             manufacturers = item['manufacturers']
             for i, man in enumerate(manufacturers):
                 manufacturers[i] = self._unescape(man)
-
-        if 'options' in item:
-            options = item['options']
-            for i, option in enumerate(options):
-                options[i]['name'] = self._unescape(option['name'])
 
         return item
 
