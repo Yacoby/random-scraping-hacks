@@ -1,7 +1,7 @@
 
 DB = {
-        'dbname' : 'bikestore2',
-        'user'   : 'postgres',
+        'dbname' : '',
+        'user'   : '',
 }
 
 # Scrapy settings for bike project
@@ -20,7 +20,7 @@ SPIDER_MODULES = ['scraping.spiders']
 NEWSPIDER_MODULE = 'scrape.spiders'
 USER_AGENT = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/536.5 (KHTML, like Gecko) Chrome/19.0.1084.52 Safari/536.5'
 
-DOWNLOAD_DELAY=4
+DOWNLOAD_DELAY=25
 
 #LOG_LEVEL='INFO'
 
@@ -40,5 +40,3 @@ SPIDER_MIDDLEWARES = {
     #'scraping.middlewares.BikeHttpErrorMiddleware': 3,
     #'scraping.middlewares.ProductItemUnusedUrlRemoverMiddleware': 4,
 }
-
-COOKIES_DEBUG = True
