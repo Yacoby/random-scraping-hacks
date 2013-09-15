@@ -47,17 +47,12 @@ class MerlinSpider(OnceCrawlSpider):
         except IndexError:
             pass
 
-        for e1 in hxs.select('//*[@class="productOptionsContainer"]'):
-            for e2 in e1.select('./div[@class="productOption inStock"]'):
-                option_price = ''.join(e2.select('./div/div[@class="sell"]/span/text()').extract())
-                option_rrp   = ''.join(e2.select('./div/span[@class="rrp"]/span/text()').extract())
+        for e in hxs.select('//div[@class="productOption inStock"]'):
+            option_price = ''.join(e.select('.//*[@class="sell"]//text()').extract())
+            option_rrp   = ''.join(e.select('.//*[@class="rrp"]//text()').extract())
 
-                if option_rrp:
-                    item['rrp'] = self.extract_price(option_rrp)
-                else:
-                    item['rrp'] = self.extract_price(option_price)
-
-                item['price'] = min(item.get('price', float('inf')), option_price)
+            item['rrp'] = self.extract_price(option_rrp or option_price)
+            item['price'] = self.extract_price(option_price)
 
         if not 'price' in item:
             return

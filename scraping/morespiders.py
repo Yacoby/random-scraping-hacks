@@ -34,12 +34,12 @@ class OnceCrawlSpider(CrawlSpider):
 
         super(OnceCrawlSpider, self).__init__(*a, **kw)
 
-    #def start_requests(self):
-    #    initial = [req for req in self.start_requests_impl()]
+    def start_requests(self):
+        initial = [req for req in self.start_requests_impl()]
     #    last_initial = initial[len(initial)-1]
     #    c = last_initial.callback
     #    last_initial.callback = lambda *a: self.gen(c, *a)
-    #    return initial
+        return initial
 
     #def gen(self, callback, *a):
     #    if not callback:
