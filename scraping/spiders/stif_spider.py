@@ -41,22 +41,19 @@ class StifSpider(OnceCrawlSpider):
         hxs = HtmlXPathSelector(response)
 
         option_rrp = []
-        options = []
-        option_elems = hxs.select("//tr[@class='stk_instock']")
-        for e in option_elems:
-            raw_name = self.extract_all_text(e.select(".//td[@class='colone']"))
-            name = raw_name[:raw_name.find(' (')]
+        option_price = []
 
+        option_elems = hxs.select("//tr[@class='stk_instock' or @class='stk_pleasecall']")
+        for e in option_elems:
             price = self.extract_price(self.extract_all_text(e.select(".//*[@class='newprice']")))
             rrp = self.extract_price(self.extract_all_text(e.select(".//*[@class='oldPrices']")))
             if not rrp:
                 option_rrp.append(price)
             else:
                 option_rrp.append(rrp)
+            option_price.append(price)
 
-            options.append({'name':name, 'currency': 'GBP', 'price':price,})
-
-        if not options:
+        if not option_price:
             return
 
         item = ProductItem()
@@ -73,8 +70,7 @@ class StifSpider(OnceCrawlSpider):
 
         item['description'] = self.extract_all_text(hxs.select('//*[@id="description"]'))
 
-
         item['rrp'] = min(option_rrp)
-        item['options'] = options
+        item['price'] = min(option_price)
 
         return [item]
