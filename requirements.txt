@@ -2,6 +2,7 @@ Django
 psycopg2
 django-mptt
 scrapy
+scrapyd
 mock
 pil
 django-debug-toolbar
