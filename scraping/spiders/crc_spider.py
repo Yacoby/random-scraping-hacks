@@ -33,21 +33,12 @@ class CrcSpider(OnceCrawlSpider):
             return match.group(1)
 
     def start_requests_impl(self):
-        yield FormRequest('http://www.chainreactioncycles.com/?_DARGS=/common/frag/localePicker.jsp',
-                          formdata={'_D:/atg/userprofiling/ProfileFormHandler.value.country': '',
-                                    '/atg/userprofiling/ProfileFormHandler.value.country':'GB',
-                                    '_D:/atg/userprofiling/ProfileFormHandler.value.currency':'' ,
-                                    '/atg/userprofiling/ProfileFormHandler.value.currency':'GBP',
-                                    '_D:/atg/userprofiling/ProfileFormHandler.value.language':'' ,
-                                    '/atg/userprofiling/ProfileFormHandler.value.language':'en',
-                                    '/atg/userprofiling/ProfileFormHandler.successURL':'http://www.chainreactioncycles.com/',
-                                    '_D:/atg/userprofiling/ProfileFormHandler.successURL': '',
-                                    '/atg/userprofiling/ProfileFormHandler.failureURL':'/',
-                                    '_D:/atg/userprofiling/ProfileFormHandler.failureURL': '',
-                                    '/atg/userprofiling/ProfileFormHandler.updateLocaleInfo':'update',
-                                    '_D:/atg/userprofiling/ProfileFormHandler.updateLocaleInfo': '',
-                                    '_DARGS':'/common/frag/localePicker.jsp', },
-                          callback=self.parse)
+        localization_cookies = {
+                'languageCode':'en',
+                'currencyCode':'GBP',
+                'countryCode':'GB',
+        }
+        yield Request('http://www.chainreactioncycles.com/',cookies=localization_cookies)
 
     def parse_item(self, response):
         hxs = HtmlXPathSelector(response)
