@@ -23,7 +23,8 @@ class RelCanonicalMiddleware(object):
                 rel_canonical = rel_canonical[0].url
                 if rel_canonical != request.url and url_is_from_spider(rel_canonical, spider):
                     log.msg("Redirecting (rel=\"canonical\") to %s from %s" % (rel_canonical, request), level=log.DEBUG, spider=spider)
-                    return request.replace(url=rel_canonical, callback=lambda r: r if r.status == 200 else response)
+                    callback = lambda r: request.callback(r) if r.status == 200 else request.callback(response)
+                    return request.replace(url=rel_canonical, method='GET', callback=callback)
         return response
 
 
