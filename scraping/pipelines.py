@@ -49,6 +49,10 @@ class HtmlCleaner(object):
             if key in item:
                 item[key] = self._unescape(item[key])
 
+        for key in ('name', 'category',):
+            if key in item:
+                item[key] = item[key].strip('\n\t ')
+
         if 'manufacturers' in item:
             manufacturers = item['manufacturers']
             for i, man in enumerate(manufacturers):
