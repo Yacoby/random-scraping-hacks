@@ -83,6 +83,7 @@ class DbWriter(object):
         siteId = items.site_id(spider.name)
 
         items.insert_or_update_item(siteId, item)
+        items.insert_price_for_item(siteId, item['price'])
 
         return item
 

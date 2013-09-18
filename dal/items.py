@@ -44,18 +44,16 @@ class Items:
                  item['url']))
             (itemId,) = result
 
-        self.insert_price_for_item(itemId, item)
-
         self.connection.commit()
         return itemId
 
-    def insert_price_for_item(self, itemId, item):
+    def insert_price_for_item(self, itemId, price, datetime=datetime.datetime.now()):
         cursor = self.connection.cursor()
         cursor.execute(('INSERT INTO "prices" '
                         '(item_id,date,price) '
                         'VALUES (%s, %s, %s) RETURNING id'),
                         (itemId,
-                         datetime.datetime.now(),
-                         item['price'],))
+                         datetime,
+                         price,))
         (priceId,) = cursor.fetchone()
         return priceId
