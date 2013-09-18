@@ -3,7 +3,7 @@ from sources.models import Site
 
 class Item(models.Model):
     name = models.CharField(max_length=256)
-    url = models.CharField(max_length=256)
+    url = models.CharField(max_length=256, unique=True)
     description = models.TextField(null=True)
     rrp = models.DecimalField(null=True,max_digits=10, decimal_places=2)
 
